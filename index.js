@@ -1,9 +1,7 @@
-const http = require('http');
+import http from 'http';
 
-const app = require('./src/app.js');
-const db = require('./src/db/models/index.js');
-
-dotenv.config();
+import app from './src/app.js';
+import db from './src/db/models/index.js';
 
 const PORT = process.env.SERVER_PORT || 5001;
 const server = http.createServer(app);

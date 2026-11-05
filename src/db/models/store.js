@@ -1,38 +1,37 @@
-const _sequelize = require('sequelize');
+import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-module.exports = class Store extends Model {
+export default class Store extends Model {
   static init(sequelize, DataTypes) {
-    return super.init(
+  return super.init({
+    id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
+    title: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
+  }, {
+    sequelize,
+    tableName: 'stores',
+    schema: 'public',
+    timestamps: false,
+    indexes: [
       {
-        id: {
-          autoIncrement: true,
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          primaryKey: true,
-        },
-        title: {
-          type: DataTypes.STRING(100),
-          allowNull: true,
-        },
-        description: {
-          type: DataTypes.TEXT,
-          allowNull: true,
-        },
+        name: "stores_pkey",
+        unique: true,
+        fields: [
+          { name: "id" },
+        ]
       },
-      {
-        sequelize,
-        tableName: 'stores',
-        schema: 'public',
-        timestamps: false,
-        indexes: [
-          {
-            name: 'stores_pkey',
-            unique: true,
-            fields: [{ name: 'id' }],
-          },
-        ],
-      },
-    );
+    ]
+  });
   }
-};
+}
