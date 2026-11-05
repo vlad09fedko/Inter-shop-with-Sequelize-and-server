@@ -7,7 +7,15 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init-db": "npx dotenv-cli -- bash -c 'npx sequelize-auto -h \"$DB_PG_HOST\" -p \"$DB_PG_PORT\" -d \"$DB_PG_NAME\" -u \"$DB_PG_USER\" -x \"$DB_PG_PWD\" -e postgres --cm p -l esm --sg true -o ./src/db/models'"
+    "init-db": "npx dotenv-cli -- bash -c 'npx sequelize-auto -h \"$DB_PG_HOST\" -p \"$DB_PG_PORT\" -d \"$DB_PG_NAME\" -u \"$DB_PG_USER\" -x \"$DB_PG_PWD\" -e postgres --cm p -l esm --sg true -o ./src/db/models'",
+    "dbcreate": "npx sequelize-cli db:create",
+    "dbdrop": "npx sequelize-cli db:drop",
+    "migall": "npx sequelize-cli db:migrate",
+    "migun": "npx sequelize-cli db:migrate:undo",
+    "migunall": "npx sequelize-cli db:migrate:undo:all",
+    "seedall": "npx sequelize-cli db:seed:all",
+    "seedun": "npx sequelize-cli db:seed:undo",
+    "seedunall": "npx sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +30,7 @@
     "sequelize": "^6.37.8"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "dotenv-cli": "^11.1.0",
     "sequelize-auto": "^0.8.8",
     "sequelize-cli": "^6.6.5"

@@ -1,53 +1,47 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class Order extends Model {
+export default class Orde extends Model {
+  static associate(models) {
+    Order.belongsTo(model.Customer, { as: 'customer', foreignKey: 'customer_id' });
+    Order.belongsToMany(model.Item, {
+      through: model.ItemOrder,
+      foreignKey: 'order_id',
+      other_key: 'item_id',
+      as: 'items',
+    });
+  }
+
   static init(sequelize, DataTypes) {
-  return super.init({
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    code: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    date: {
-      type: DataTypes.DATEONLY,
-      allowNull: true
-    },
-    customer_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'customers',
-        key: 'id'
-      }
-    },
-    amount: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    paid: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true
-    }
-  }, {
-    sequelize,
-    tableName: 'orders',
-    schema: 'public',
-    timestamps: false,
-    indexes: [
+    return super.init(
       {
-        name: "orders_pkey",
-        unique: true,
-        fields: [
-          { name: "id" },
-        ]
+        code: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        },
+        date: {
+          type: DataTypes.DATEONLY,
+          allowNull: true,
+        },
+        customer_id: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+        },
+        amount: {
+          type: DataTypes.FLOAT,
+          allowNull: true,
+        },
+        paid: {
+          type: DataTypes.BOOLEAN,
+          allowNull: true,
+        },
       },
-    ]
-  });
+      {
+        sequelize,
+        modelName: 'Order',
+        tableName: 'orders',
+        underscored: true,
+      },
+    );
   }
 }
