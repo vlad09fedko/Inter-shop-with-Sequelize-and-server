@@ -1,10 +1,9 @@
-Migration procedure:
-npx sequelize-cli db:migrate --name 20261105163019-create-brands
-npx sequelize-cli db:migrate --name 20261105165512-create-item_categories
-npx sequelize-cli db:migrate --name 20261105170613-create-item_models
-npx sequelize-cli db:migrate --name 20261105170020-create-item_types
-npx sequelize-cli db:migrate --name 20261105170904-create-stores
-npx sequelize-cli db:migrate --name 20261105165042-create-customers
-npx sequelize-cli db:migrate --name 20261105170429-create-items
-npx sequelize-cli db:migrate --name 20261105170738-create-orders
-npx sequelize-cli db:migrate --name 20261105165713-create-item_orders
+В назвах файлів міграцій змінив дату та час на звичайну нумерацію через те, що в неправильному порядку створював їх. Назви сідів теж змінив, щоб все відповідало одному стилю.
+
+Для тестових даних у сідах використовується бібліотека @faker-js/faker. Можливо не найкращим чином реалізовано отримання id для полів з id, але чомусь використовувати static Model.findAll() у мене не вийшло.
+
+1 та 2 завдання виконані для кожної сущності
+3 та 4 завдання виконані для магазинів(отримуються або видаляються всі items для 3 випадкових магазинів). Виконані в storeControllers.js
+5 завдання реалізоване для кожної сущності
+
+1* та 2* завдання виконані в customerControllers.js
