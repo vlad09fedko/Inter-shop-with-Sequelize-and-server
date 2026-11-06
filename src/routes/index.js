@@ -7,7 +7,7 @@ import itemCategoryRouters from './itemCategoryRouters.js';
 // import itemRouters from './itemRouters.js';
 // import itemTypeRouters from './itemTypeRouters.js';
 // import orderRouters from './orderRouters.js';
-// import storeRouters from './storeRouters.js';
+import storeRouters from './storeRouters.js';
 
 const router = new Router();
 
@@ -18,6 +18,6 @@ router.use('/itemCategories', itemCategoryRouters);
 // router.use('/items', itemRouters);
 // router.use('/itemTypes', itemTypeRouters);
 // router.use('/orders', orderRouters);
-// router.use('/stores', storeRouters);
+router.use('/stores', storeRouters);
 
 export default router;

@@ -1,40 +1,63 @@
+import createError from 'http-errors';
+
 import db from '../db/models/index.js';
 
-class BrandController {
-  async getAllBrands(req, res, next) {
+class StoreController {
+  async getAllStores(req, res, next) {
     try {
-      const brands = await Brand.findAll({
-        raw: true,
+      const stores = await db.Store.findAll({ raw: true });
+      if (!stores.length) throw createError(404, 'Stores not found!');
+      return res.json(stores);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getStoreById(req, res, next) {
+    try {
+      const store = await db.Store.findByPk(req.params.storeId);
+      if (!store) throw createError(404, 'Store not found!');
+      return res.json(store);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async createStore(req, res, next) {
+    try {
+      const createdStore = await db.Store.create(req.body, { raw: true });
+      return res.json(createdStore);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateStore(req, res, next) {
+    try {
+      const updatedStore = await db.Store.update(req.body, {
+        where: { id: req.params.storeId },
+        returning: true,
       });
-      return res.json(brands);
+      return res.json(...updatedStore[1]);
     } catch (error) {
       next(error);
     }
   }
-  async getBrandById(req, res, next) {
+
+  async deleteStore(req, res, next) {
     try {
-    } catch (error) {
-      next(error);
-    }
-  }
-  async createBrand(req, res, next) {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  }
-  async updateBrand(req, res, next) {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  }
-  async deleteBrand(req, res, next) {
-    try {
+      const deletedStoresCount = await db.Store.destroy({
+        where: { id: req.params.storeId },
+      });
+      if (deletedStoresCount) {
+        return res.json(Number(req.params.storeId));
+      } else {
+        throw createError(404, 'Store not found!');
+      }
     } catch (error) {
       next(error);
     }
   }
 }
 
-export const storeController = new BrandController();
+export const storeController = new StoreController();
