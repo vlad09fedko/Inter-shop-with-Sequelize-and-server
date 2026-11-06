@@ -13,6 +13,7 @@ export default class Brand extends Model {
         title: {
           type: DataTypes.STRING(100),
           allowNull: false,
+          unique: true
         },
         description: {
           type: DataTypes.TEXT,

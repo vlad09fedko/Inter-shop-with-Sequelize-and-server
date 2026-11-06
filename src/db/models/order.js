@@ -3,7 +3,10 @@ const { Model, Sequelize } = _sequelize;
 
 export default class Order extends Model {
   static associate(models) {
-    Order.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customer_id' });
+    Order.belongsTo(models.Customer, {
+      as: 'customer',
+      foreignKey: 'customer_id',
+    });
     Order.belongsToMany(models.Item, {
       through: models.ItemOrder,
       foreignKey: 'order_id',
@@ -17,7 +20,8 @@ export default class Order extends Model {
       {
         code: {
           type: DataTypes.TEXT,
-          allowNull: true,
+          allowNull: false,
+          unique: true,
         },
         date: {
           type: DataTypes.DATEONLY,
@@ -25,15 +29,15 @@ export default class Order extends Model {
         },
         customer_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         amount: {
           type: DataTypes.FLOAT,
-          allowNull: true,
+          allowNull: false,
         },
         paid: {
           type: DataTypes.BOOLEAN,
-          allowNull: true,
+          allowNull: false,
         },
       },
       {

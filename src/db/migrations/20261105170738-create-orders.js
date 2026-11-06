@@ -12,7 +12,8 @@ export default {
       },
       code: {
         type: Sequelize.TEXT,
-        allowNull: true,
+        allowNull: false,
+        unique: true,
       },
       date: {
         type: Sequelize.DATEONLY,
@@ -20,7 +21,7 @@ export default {
       },
       customer_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'customers',
           key: 'id',
@@ -28,11 +29,11 @@ export default {
       },
       amount: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       paid: {
         type: Sequelize.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,

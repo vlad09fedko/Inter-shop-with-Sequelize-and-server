@@ -1,0 +1,21 @@
+@baseUrl=http://127.0.0.1:5000/api/itemCategories
+
+GET {{baseUrl}}
+###
+GET {{baseUrl}}/1
+###
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "title": "test_item_category_1"
+}
+### 
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+  "title": "test_item_category_2"
+}
+###
+DELETE {{baseUrl}}/1

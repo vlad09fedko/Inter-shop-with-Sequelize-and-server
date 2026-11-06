@@ -12,7 +12,8 @@ export default {
       },
       title: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
+        unique: true,
       },
       description: {
         type: Sequelize.TEXT,

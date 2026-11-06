@@ -12,11 +12,12 @@ export default class ItemModel extends Model {
       {
         title: {
           type: DataTypes.STRING(100),
-          allowNull: true,
+          allowNull: false,
+          unique: true,
         },
         brand_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         description: {
           type: DataTypes.TEXT,

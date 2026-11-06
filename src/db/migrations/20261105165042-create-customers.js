@@ -17,6 +17,7 @@ export default {
       email: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unique: true,
       },
       password_hash: {
         type: Sequelize.TEXT,

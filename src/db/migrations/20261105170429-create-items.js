@@ -12,7 +12,7 @@ export default {
       },
       categ_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'item_categories',
           key: 'id',
@@ -20,7 +20,7 @@ export default {
       },
       type_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'item_types',
           key: 'id',
@@ -28,7 +28,7 @@ export default {
       },
       brand_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'brands',
           key: 'id',
@@ -36,7 +36,7 @@ export default {
       },
       model_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'item_models',
           key: 'id',
@@ -44,11 +44,11 @@ export default {
       },
       price: {
         type: Sequelize.FLOAT,
-        allowNull: true,
+        allowNull: false,
       },
       store_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'stores',
           key: 'id',
@@ -56,7 +56,7 @@ export default {
       },
       amount: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       created_at: {
         allowNull: false,

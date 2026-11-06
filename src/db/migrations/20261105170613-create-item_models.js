@@ -12,11 +12,13 @@ export default {
       },
       title: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
+                  unique: true
+
       },
       brand_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'brands',
           key: 'id',

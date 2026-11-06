@@ -11,7 +11,7 @@ export default class Store extends Model {
       {
         title: {
           type: DataTypes.STRING(100),
-          allowNull: true,
+          allowNull: false,
         },
         description: {
           type: DataTypes.TEXT,

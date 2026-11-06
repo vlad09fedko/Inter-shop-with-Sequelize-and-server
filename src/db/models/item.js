@@ -24,31 +24,31 @@ export default class Item extends Model {
       {
         categ_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         type_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         brand_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         model_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         price: {
           type: DataTypes.FLOAT,
-          allowNull: true,
+          allowNull: false,
         },
         store_id: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
         amount: {
           type: DataTypes.INTEGER,
-          allowNull: true,
+          allowNull: false,
         },
       },
       {

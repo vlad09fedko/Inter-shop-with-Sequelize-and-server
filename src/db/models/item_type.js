@@ -11,7 +11,8 @@ export default class ItemType extends Model {
       {
         title: {
           type: DataTypes.STRING(100),
-          allowNull: true,
+          allowNull: false,
+          unique: true,
         },
         description: {
           type: DataTypes.TEXT,
