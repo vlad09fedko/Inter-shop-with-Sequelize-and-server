@@ -23,10 +23,6 @@ export default class Order extends Model {
           allowNull: false,
           unique: true,
         },
-        date: {
-          type: DataTypes.DATEONLY,
-          allowNull: true,
-        },
         customer_id: {
           type: DataTypes.INTEGER,
           allowNull: false,

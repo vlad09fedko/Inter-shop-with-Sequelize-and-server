@@ -15,10 +15,6 @@ export default {
         allowNull: false,
         unique: true,
       },
-      date: {
-        type: Sequelize.DATEONLY,
-        allowNull: true,
-      },
       customer_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
