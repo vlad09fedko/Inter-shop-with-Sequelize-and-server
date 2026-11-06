@@ -1,19 +1,19 @@
-// import { Router } from 'express';
+import { Router } from 'express';
 
-// import {itemController} from '../controllers/index.js';
-// import { validateItem } from '../middleware/validate.mw.js';
+import { itemController } from '../controllers/index.js';
+import { validateItem } from '../middleware/validate.mw.js';
 
-// const router = new Router();
+const router = new Router();
 
-// router
-//   .route('/')
-//   .get(itemController.getAllItems)
-//   .post(validateItem, itemController.createItem)
-//   .put(validateItem, itemController.updateItem);
+router
+  .route('/')
+  .get(itemController.getAllItems)
+  .post(validateItem, itemController.createItem);
 
-// router
-//   .route('/:itemId')
-//   .get(itemController.getItemById)
-//   .delete(itemController.deleteItem);
+router
+  .route('/:itemId')
+  .get(itemController.getItemById)
+  .put(validateItem, itemController.updateItem)
+  .delete(itemController.deleteItem);
 
-// export default router;
+export default router;
