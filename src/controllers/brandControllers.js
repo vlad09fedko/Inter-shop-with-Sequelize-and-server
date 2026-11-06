@@ -5,7 +5,12 @@ import db from '../db/models/index.js';
 class BrandController {
   async getAllBrands(req, res, next) {
     try {
-      const brands = await db.Brand.findAll({ raw: true });
+      console.log(req.query);
+      const brands = await db.Brand.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
       if (!brands.length) throw createError(404, 'Brands not found!');
       return res.json(brands);
     } catch (error) {

@@ -5,8 +5,13 @@ import db from '../db/models/index.js';
 class ItemCategoryController {
   async getAllItemCategories(req, res, next) {
     try {
-      const itemCategories = await db.ItemCategory.findAll({ raw: true });
-      if (!itemCategories.length) throw createError(404, 'Item categories not found!');
+      const itemCategories = await db.ItemCategory.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
+      if (!itemCategories.length)
+        throw createError(404, 'Item categories not found!');
       return res.json(itemCategories);
     } catch (error) {
       next(error);
@@ -15,7 +20,9 @@ class ItemCategoryController {
 
   async getItemCategoryById(req, res, next) {
     try {
-      const itemCategory = await db.ItemCategory.findByPk(req.params.itemCategoryId);
+      const itemCategory = await db.ItemCategory.findByPk(
+        req.params.itemCategoryId,
+      );
       if (!itemCategory) throw createError(404, 'ItemCategory not found!');
       return res.json(itemCategory);
     } catch (error) {
@@ -25,7 +32,9 @@ class ItemCategoryController {
 
   async createItemCategory(req, res, next) {
     try {
-      const createdItemCategory = await db.ItemCategory.create(req.body, { raw: true });
+      const createdItemCategory = await db.ItemCategory.create(req.body, {
+        raw: true,
+      });
       return res.json(createdItemCategory);
     } catch (error) {
       next(error);

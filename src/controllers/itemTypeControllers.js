@@ -5,7 +5,11 @@ import db from '../db/models/index.js';
 class ItemTypeController {
   async getAllItemTypes(req, res, next) {
     try {
-      const itemTypes = await db.ItemType.findAll({ raw: true });
+      const itemTypes = await db.ItemType.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
       if (!itemTypes.length) throw createError(404, 'Item types not found!');
       return res.json(itemTypes);
     } catch (error) {

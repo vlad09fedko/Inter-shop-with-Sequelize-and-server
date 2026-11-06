@@ -8,7 +8,11 @@ class CustomerController {
 
   async getAllCustomers(req, res, next) {
     try {
-      const customer = await db.Customer.findAll({ raw: true });
+      const customer = await db.Customer.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
       if (!customer.length) throw createError(404, 'Customers not found!');
       return res.json(customer);
     } catch (error) {

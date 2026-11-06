@@ -5,7 +5,11 @@ import db from '../db/models/index.js';
 class ItemModelController {
   async getAllItemModels(req, res, next) {
     try {
-      const itemModels = await db.ItemModel.findAll({ raw: true });
+      const itemModels = await db.ItemModel.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
       if (!itemModels.length) throw createError(404, 'Item models not found!');
       return res.json(itemModels);
     } catch (error) {

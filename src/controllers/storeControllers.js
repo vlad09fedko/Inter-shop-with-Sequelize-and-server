@@ -5,7 +5,11 @@ import db from '../db/models/index.js';
 class StoreController {
   async getAllStores(req, res, next) {
     try {
-      const stores = await db.Store.findAll({ raw: true });
+      const stores = await db.Store.findAll({
+        raw: true,
+        limit: 10,
+        offset: req.query.offset || 0,
+      });
       if (!stores.length) throw createError(404, 'Stores not found!');
       return res.json(stores);
     } catch (error) {
