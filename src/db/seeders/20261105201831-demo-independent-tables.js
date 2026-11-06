@@ -14,7 +14,7 @@ export default {
       customers = [],
       item_categories = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
       // 1. brands
       brands.push({
         title: `${faker.company.name()}${i}`,
@@ -43,7 +43,10 @@ export default {
       customers.push({
         full_name: faker.person.fullName(),
         email: `${faker.internet.email()}${i}`,
-        password_hash: hashSync(faker.string.alphanumeric({ length: 8 }), salt),
+        password_hash: hashSync(
+          faker.string.alphanumeric({ length: 10 }),
+          salt,
+        ),
         created_at: now,
         updated_at: now,
       });
