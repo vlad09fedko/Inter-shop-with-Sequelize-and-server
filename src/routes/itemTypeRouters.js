@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import itemTypeController from '../controllers/itemTypeController.js';
+import {itemTypeController} from '../controllers/index.js';
 import { validateItemType } from '../middleware/validate.mw.js';
 
 const router = new Router();
 
 router
   .route('/')
-  .get(itemTypeController.getItemTypes)
+  .get(itemTypeController.getAllItemTypes)
   .post(validateItemType, itemTypeController.createItemType)
   .put(validateItemType, itemTypeController.updateItemType);
 

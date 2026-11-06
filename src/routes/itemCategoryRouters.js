@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import itemCategoryController from '../controllers/itemCategoryController.js';
+import {itemCategoryController} from '../controllers/index.js';
 import { validateItemCategory } from '../middleware/validate.mw.js';
 
 const router = new Router();
 
 router
   .route('/')
-  .get(itemCategoryController.getItemCategories)
+  .get(itemCategoryController.getAllItemCategories)
   .post(validateItemCategory, itemCategoryController.createItemCategory)
   .put(validateItemCategory, itemCategoryController.updateItemCategory);
 

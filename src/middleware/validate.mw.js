@@ -1,4 +1,4 @@
-import SCHEMAS from '../utils/validationSchemas/index.js';
+import * as SCHEMAS from '../utils/validationSchemas/index.js';
 
 export const validateBrand = async (req, res, next) => {
   try {

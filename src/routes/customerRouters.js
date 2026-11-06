@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import customerController from '../controllers/customerController.js';
+import {customerController} from '../controllers/index.js';
 import { validateCustomer } from '../middleware/validate.mw.js';
 
 const router = new Router();
 
 router
   .route('/')
-  .get(customerController.getCustomers)
+  .get(customerController.getAllCustomers)
   .post(validateCustomer, customerController.createCustomer)
   .put(validateCustomer, customerController.updateCustomer);
 

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import brandController from '../controllers/brandController.js';
+import { brandController } from '../controllers/index.js';
 import { validateBrand } from '../middleware/validate.mw.js';
 
 const router = new Router();
 
 router
   .route('/')
-  .get(brandController.getBrands)
+  .get(brandController.getAllBrands)
   .post(validateBrand, brandController.createBrand)
   .put(validateBrand, brandController.updateBrand);
 

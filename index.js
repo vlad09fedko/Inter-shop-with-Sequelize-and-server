@@ -1,7 +1,7 @@
 import http from 'http';
 
 import app from './src/app.js';
-import db from './src/db/models/index.js';
+import db from './src/db/models/index.cjs';
 
 const PORT = process.env.SERVER_PORT || 5001;
 const server = http.createServer(app);

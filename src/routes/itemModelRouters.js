@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import itemModelController from '../controllers/itemModelController.js';
+import {itemModelController} from '../controllers/index.js';
 import { validateItemModel } from '../middleware/validate.mw.js';
 
 const router = new Router();
 
 router
   .route('/')
-  .get(itemModelController.getItemModels)
+  .get(itemModelController.getAllItemModels)
   .post(validateItemModel, itemModelController.createItemModel)
   .put(validateItemModel, itemModelController.updateItemModel);
 

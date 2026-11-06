@@ -4,5 +4,5 @@ export * from './brandSchema.js';
 export * from './itemTypeSchema.js';
 export * from './itemCategorySchema.js';
 export * from './itemModelSchema.js';
-export * from './itemSchema';
-export * from './orderSchema';
+export * from './itemSchema.js';
+export * from './orderSchema.js';
