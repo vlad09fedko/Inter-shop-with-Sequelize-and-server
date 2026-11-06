@@ -7,20 +7,20 @@ export default {
     const models = [];
     const now = new Date();
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       models.push({
-        title: faker.commerce.productName(),
-        brand_id: faker.number.int({ min: 1, max: 50 }),
+        title: `${faker.commerce.productName()}${i}`,
+        brand_id: faker.number.int({ min: 1, max: 100 }),
         description: faker.lorem.sentence(),
         created_at: now,
         updated_at: now,
       });
     }
 
-    await queryInterface.bulkInsert('item_models', models, {});
+    await queryInterface.bulkInsert('item_models', models);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('item_models', null, {});
+    await queryInterface.bulkDelete('item_models', null);
   },
 };

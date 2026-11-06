@@ -3,8 +3,8 @@ const { Model, Sequelize } = _sequelize;
 
 export default class ItemModel extends Model {
   static associate(models) {
-    ItemModel.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brand_id' });
     ItemModel.hasMany(models.Item, { as: 'items', foreignKey: 'model_id' });
+    ItemModel.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brand_id' });
   }
 
   static init(sequelize, DataTypes) {
