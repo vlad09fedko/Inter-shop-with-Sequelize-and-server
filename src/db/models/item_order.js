@@ -19,6 +19,8 @@ export default class ItemOrder extends Model {
         modelName: 'ItemOrder',
         tableName: 'item_orders',
         underscored: true,
+        timestamps: false,
+        underscored: true,
       },
     );
   }

@@ -12,7 +12,7 @@ export default class Brand extends Model {
       {
         title: {
           type: DataTypes.STRING(100),
-          allowNull: true,
+          allowNull: false,
         },
         description: {
           type: DataTypes.TEXT,
@@ -21,7 +21,7 @@ export default class Brand extends Model {
       },
       {
         sequelize,
-        ModelName: 'Brand',
+        modelName: 'Brand',
         tableName: 'brands',
         underscored: true,
       },

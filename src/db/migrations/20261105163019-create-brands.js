@@ -12,7 +12,7 @@ export default {
       },
       title: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,

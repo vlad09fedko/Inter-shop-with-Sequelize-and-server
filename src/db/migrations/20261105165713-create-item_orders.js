@@ -6,7 +6,8 @@ export default {
     await queryInterface.createTable('item_orders', {
       item_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        primaryKey: true,
         references: {
           model: 'items',
           key: 'id',
@@ -14,7 +15,8 @@ export default {
       },
       order_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        primaryKey: true,
         references: {
           model: 'orders',
           key: 'id',

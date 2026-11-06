@@ -1,11 +1,11 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class Orde extends Model {
+export default class Order extends Model {
   static associate(models) {
-    Order.belongsTo(model.Customer, { as: 'customer', foreignKey: 'customer_id' });
-    Order.belongsToMany(model.Item, {
-      through: model.ItemOrder,
+    Order.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customer_id' });
+    Order.belongsToMany(models.Item, {
+      through: models.ItemOrder,
       foreignKey: 'order_id',
       other_key: 'item_id',
       as: 'items',

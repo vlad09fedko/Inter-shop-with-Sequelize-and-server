@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('api', router)
+app.use('/api', router)
 app.use(validationErrorHandler, errorHandler);
 
 export default app;

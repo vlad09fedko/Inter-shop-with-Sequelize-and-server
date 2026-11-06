@@ -1,5 +1,4 @@
-import db from '../db/models/index.cjs';
-console.log(db)
+import db from '../db/models/index.js';
 
 class BrandController {
   async getAllBrands(req, res, next) {
@@ -38,4 +37,4 @@ class BrandController {
   }
 }
 
-export const itemTypeController = new BrandController();
+export const customerController = new BrandController();

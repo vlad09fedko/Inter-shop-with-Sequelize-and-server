@@ -1,3 +1,21 @@
+@baseUrl=http://127.0.0.1:5000/api/brands
 
+GET {{baseUrl}}
+###
+GET {{baseUrl}}/1
+###
+POST {{baseUrl}}
+Content-Type: application/json
 
-GET http://127.0.0.1:5000/api/brands
+{
+  "title": "test_brand"
+}
+### 
+PUT {{baseUrl}}/3
+Content-Type: application/json
+
+{
+  "title": "test_brand_2"
+}
+###
+DELETE {{baseUrl}}/3

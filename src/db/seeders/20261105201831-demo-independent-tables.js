@@ -40,6 +40,10 @@ export default {
       customers.push({
         full_name: faker.person.fullName(),
         email: faker.internet.email(),
+        password_hash: faker.string.alphanumeric({
+          length: 8,
+          casing: 'upper',
+        }),
         created_at: now,
         updated_at: now,
       });

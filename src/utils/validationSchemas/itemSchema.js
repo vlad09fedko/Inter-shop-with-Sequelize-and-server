@@ -7,5 +7,5 @@ export const ITEM_SCHEMA = Yup.object().shape({
   model_id: Yup.number().min(1),
   price: Yup.number().min(1),
   store_id: Yup.number().min(1),
-  amount: Yup.number().min(1),
+  amount: Yup.number().min(0),
 });

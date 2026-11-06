@@ -6,7 +6,6 @@ export const validationErrorHandler = (error, req, res, next) => {
       .status(400)
       .send({ errors: [{ title: 'Validation error', details: error.errors }] });
   }
-  console.error(error?.message);
   next(error);
 };
 

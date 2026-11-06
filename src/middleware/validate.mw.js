@@ -6,7 +6,7 @@ export const validateBrand = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -16,7 +16,7 @@ export const validateCustomer = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -26,7 +26,7 @@ export const validateItemCategory = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -36,7 +36,7 @@ export const validateItemModel = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -46,7 +46,7 @@ export const validateItem = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -56,7 +56,7 @@ export const validateItemType = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -66,7 +66,7 @@ export const validateOrder = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
 
@@ -76,6 +76,6 @@ export const validateStore = async (req, res, next) => {
     req.body = validatedBody;
     next();
   } catch (error) {
-    next(`Error is ${error.errors}`);
+    next(error);
   }
 };
