@@ -8,14 +8,14 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "title": "test_brand"
+  "title": "test_brand_1"
 }
 ### 
-PUT {{baseUrl}}/3
+PUT {{baseUrl}}/1
 Content-Type: application/json
 
 {
   "title": "test_brand_2"
 }
 ###
-DELETE {{baseUrl}}/3
+DELETE {{baseUrl}}/1

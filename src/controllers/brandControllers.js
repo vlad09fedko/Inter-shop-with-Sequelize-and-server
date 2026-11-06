@@ -46,11 +46,11 @@ class BrandController {
 
   async deleteBrand(req, res, next) {
     try {
-      const deletedBrandId = await db.Brand.destroy({
+      const deletedBrandsCount = await db.Brand.destroy({
         where: { id: req.params.brandId },
       });
-      if (deletedBrandId) {
-        return res.json(deletedBrandId);
+      if (deletedBrandsCount) {
+        return res.json(Number(req.params.brandId));
       } else {
         throw createError(404, 'Brand not found!');
       }

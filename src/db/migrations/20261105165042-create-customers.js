@@ -12,11 +12,11 @@ export default {
       },
       full_name: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING(100),
-        allowNull: true,
+        allowNull: false,
       },
       password_hash: {
         type: Sequelize.TEXT,
