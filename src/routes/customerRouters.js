@@ -9,7 +9,7 @@ router
   .route('/mostOrders')
   .get(customerController.getCustomerWithMostOrders);
 router
-  .route('/mostExprensiveItem')
+  .route('/mostExpensiveItem')
   .get(customerController.getCustomerWithMostExpensiveItem);
 
 router

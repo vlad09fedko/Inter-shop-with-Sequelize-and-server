@@ -94,7 +94,10 @@ class CustomerController {
           'id',
           'full_name',
           [
-            db.sequelize.fn('COUNT', db.sequelize.col('customer_id')),
+            db.sequelize.cast(
+              db.sequelize.fn('COUNT', db.sequelize.col('customer_id')),
+              'INTEGER',
+            ),
             'count_of_orders',
           ],
         ],
@@ -103,6 +106,7 @@ class CustomerController {
           {
             model: db.Order,
             attributes: [],
+            as: 'orders',
           },
         ],
       });
@@ -119,6 +123,48 @@ class CustomerController {
 
   async getCustomerWithMostExpensiveItem(req, res, next) {
     try {
+      const customers = await db.Customer.findAll({
+        raw: true,
+        order: [
+          ['max_price', 'DESC'],
+          ['id', 'ASC'],
+        ],
+        attributes: [
+          'id',
+          'full_name',
+          [
+            db.sequelize.fn('MAX', db.sequelize.col('orders->items.price')),
+            'max_price',
+          ],
+        ],
+        group: ['Customer.id', 'Customer.full_name'],
+        include: [
+          {
+            model: db.Order,
+            attributes: [],
+            as: 'orders',
+            required: true,
+            include: [
+              {
+                model: db.Item,
+                attributes: [],
+                as: 'items',
+                required: true,
+                through: {
+                  attributes: [],
+                },
+              },
+            ],
+          },
+        ],
+      });
+
+      const maxPrice = customers[0].max_price;
+      const resCustomers = customers.filter(
+        customer => customer.max_price === maxPrice,
+      );
+      if (!resCustomers.length) throw createError(404, 'Customers not found!');
+      return res.json(resCustomers);
     } catch (error) {
       next(error);
     }
