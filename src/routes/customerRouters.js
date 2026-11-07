@@ -6,6 +6,13 @@ import { validateCustomer } from '../middleware/validate.mw.js';
 const router = new Router();
 
 router
+  .route('/mostOrders')
+  .get(customerController.getCustomerWithMostOrders);
+router
+  .route('/mostExprensiveItem')
+  .get(customerController.getCustomerWithMostExpensiveItem);
+
+router
   .route('/')
   .get(customerController.getAllCustomers)
   .post(validateCustomer, customerController.createCustomer);

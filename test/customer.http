@@ -28,3 +28,7 @@ Content-Type: application/json
 {
   "password_hash": "qwerty"
 }
+###
+GET {{baseUrl}}/mostOrders
+###
+GET {{baseUrl}}/mostExpensiveItem

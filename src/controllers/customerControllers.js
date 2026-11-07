@@ -2,19 +2,20 @@ import createError from 'http-errors';
 import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
 
 import db from '../db/models/index.js';
+import { Sequelize } from 'sequelize';
 
 class CustomerController {
   saltRounds = 5;
 
   async getAllCustomers(req, res, next) {
     try {
-      const customer = await db.Customer.findAll({
+      const customers = await db.Customer.findAll({
         raw: true,
         limit: 10,
         offset: req.query.offset || 0,
       });
-      if (!customer.length) throw createError(404, 'Customers not found!');
-      return res.json(customer);
+      if (!customers.length) throw createError(404, 'Customers not found!');
+      return res.json(customers);
     } catch (error) {
       next(error);
     }
@@ -76,6 +77,48 @@ class CustomerController {
       } else {
         throw createError(404, 'Customer not found!');
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCustomerWithMostOrders(req, res, next) {
+    try {
+      const customers = await db.Customer.findAll({
+        raw: true,
+        order: [
+          ['count_of_orders', 'DESC'],
+          ['id', 'ASC'],
+        ],
+        attributes: [
+          'id',
+          'full_name',
+          [
+            db.sequelize.fn('COUNT', db.sequelize.col('customer_id')),
+            'count_of_orders',
+          ],
+        ],
+        group: ['Customer.id', 'Customer.full_name'],
+        include: [
+          {
+            model: db.Order,
+            attributes: [],
+          },
+        ],
+      });
+      const maxOfOrders = customers[0].count_of_orders;
+      const resCustomers = customers.filter(
+        customer => customer.count_of_orders === maxOfOrders,
+      );
+      if (!resCustomers.length) throw createError(404, 'Customers not found!');
+      return res.json(resCustomers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCustomerWithMostExpensiveItem(req, res, next) {
+    try {
     } catch (error) {
       next(error);
     }
