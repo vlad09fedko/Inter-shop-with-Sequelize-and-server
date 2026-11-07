@@ -3,6 +3,8 @@
 import { faker } from '@faker-js/faker';
 import { genSaltSync, hashSync } from 'bcryptjs';
 
+import { testStoresTitles } from '../../constants/index.js';
+
 export default {
   async up(queryInterface, Sequelize) {
     const now = new Date();
@@ -59,6 +61,16 @@ export default {
         updated_at: now,
       });
     }
+
+    // 6. my test stores
+    stores.push(
+      ...testStoresTitles.map(title => ({
+        title,
+        description: faker.location.streetAddress(),
+        created_at: now,
+        updated_at: now,
+      })),
+    );
 
     await queryInterface.bulkInsert('brands', brands);
     await queryInterface.bulkInsert('item_types', itemTypes);

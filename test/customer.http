@@ -1,6 +1,6 @@
 @baseUrl=http://127.0.0.1:5000/api/customers
 
-GET {{baseUrl}}
+GET {{baseUrl}}?offset=25
 ###
 GET {{baseUrl}}/1
 ###
@@ -26,7 +26,5 @@ DELETE {{baseUrl}}/1
 Content-Type: application/json
 
 {
-  "full_name": "test_user",
-  "email": "test_email@gmail.com",
   "password_hash": "qwerty"
 }

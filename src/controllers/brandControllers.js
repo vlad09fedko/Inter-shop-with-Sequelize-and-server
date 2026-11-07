@@ -55,7 +55,7 @@ class BrandController {
         where: { id: req.params.brandId },
       });
       if (deletedBrandsCount) {
-        return res.json(Number(req.params.brandId));
+        return res.json(deletedBrandsCount);
       } else {
         throw createError(404, 'Brand not found!');
       }

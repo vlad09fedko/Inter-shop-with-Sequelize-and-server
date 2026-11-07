@@ -54,7 +54,7 @@ class ItemController {
         where: { id: req.params.itemId },
       });
       if (deletedItemsCount) {
-        return res.json(Number(req.params.itemId));
+        return res.json(deletedItemsCount);
       } else {
         throw createError(404, 'Item not found!');
       }

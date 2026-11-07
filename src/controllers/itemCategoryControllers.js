@@ -59,7 +59,7 @@ class ItemCategoryController {
         where: { id: req.params.itemCategoryId },
       });
       if (deletedItemCategoriesCount) {
-        return res.json(Number(req.params.itemCategoryId));
+        return res.json(deletedItemCategoriesCount);
       } else {
         throw createError(404, 'Item category not found!');
       }

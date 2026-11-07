@@ -2,6 +2,8 @@
 
 GET {{baseUrl}}
 ###
+GET {{baseUrl}}?store=JYSC&store=ATB&store=Comfy
+###
 GET {{baseUrl}}/1
 ###
 POST {{baseUrl}}
@@ -19,3 +21,7 @@ Content-Type: application/json
 }
 ###
 DELETE {{baseUrl}}/1
+###
+DELETE {{baseUrl}}?store=JYSC
+###
+DELETE {{baseUrl}}/2?store=ATB

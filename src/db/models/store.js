@@ -3,7 +3,12 @@ const { Model, Sequelize } = _sequelize;
 
 export default class Store extends Model {
   static associate(models) {
-    Store.hasMany(models.Item, { as: 'items', foreignKey: 'store_id' });
+    Store.hasMany(models.Item, {
+      as: 'items',
+      foreignKey: 'store_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   }
 
   static init(sequelize, DataTypes) {

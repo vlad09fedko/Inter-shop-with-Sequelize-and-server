@@ -3,19 +3,43 @@ const { Model, Sequelize } = _sequelize;
 
 export default class Item extends Model {
   static associate(models) {
-    Item.belongsTo(models.Brand, { as: 'brand', foreignKey: 'brand_id' });
+    Item.belongsTo(models.Brand, {
+      as: 'brand',
+      foreignKey: 'brand_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
     Item.belongsTo(models.ItemCategory, {
       as: 'categ',
       foreignKey: 'categ_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
-    Item.belongsTo(models.ItemType, { as: 'type', foreignKey: 'type_id' });
-    Item.belongsTo(models.ItemModel, { as: 'model', foreignKey: 'model_id' });
-    Item.belongsTo(models.Store, { as: 'store', foreignKey: 'store_id' });
+    Item.belongsTo(models.ItemType, {
+      as: 'type',
+      foreignKey: 'type_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    Item.belongsTo(models.ItemModel, {
+      as: 'model',
+      foreignKey: 'model_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    Item.belongsTo(models.Store, {
+      as: 'store',
+      foreignKey: 'store_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
     Item.belongsToMany(models.Order, {
       through: models.ItemOrder,
       foreignKey: 'item_id',
       other_key: 'order_id',
       as: 'orders',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   }
 

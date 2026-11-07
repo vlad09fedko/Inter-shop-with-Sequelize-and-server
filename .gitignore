@@ -1,3 +1,7 @@
 /node_modules/
 /.vscode/
+
 .env
+
+sequelize-meta.json
+sequelize-data.json

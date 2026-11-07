@@ -3,8 +3,18 @@ const { Model, Sequelize } = _sequelize;
 
 export default class Brand extends Model {
   static associate(models) {
-    Brand.hasMany(models.Item, { as: 'items', foreignKey: 'brand_id' });
-    Brand.hasMany(models.ItemModel, { as: 'models', foreignKey: 'brand_id' });
+    Brand.hasMany(models.Item, {
+      as: 'items',
+      foreignKey: 'brand_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    Brand.hasMany(models.ItemModel, {
+      as: 'models',
+      foreignKey: 'brand_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   }
 
   static init(sequelize, DataTypes) {
@@ -13,7 +23,7 @@ export default class Brand extends Model {
         title: {
           type: DataTypes.STRING(100),
           allowNull: false,
-          unique: true
+          unique: true,
         },
         description: {
           type: DataTypes.TEXT,

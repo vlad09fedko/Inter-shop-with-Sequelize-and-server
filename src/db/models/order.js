@@ -6,12 +6,16 @@ export default class Order extends Model {
     Order.belongsTo(models.Customer, {
       as: 'customer',
       foreignKey: 'customer_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
     Order.belongsToMany(models.Item, {
       through: models.ItemOrder,
       foreignKey: 'order_id',
       other_key: 'item_id',
       as: 'items',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   }
 

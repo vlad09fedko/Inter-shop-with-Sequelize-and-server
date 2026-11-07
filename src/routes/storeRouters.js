@@ -8,7 +8,8 @@ const router = new Router();
 router
   .route('/')
   .get(storeController.getAllStores)
-  .post(validateStore, storeController.createStore);
+  .post(validateStore, storeController.createStore)
+  .delete(storeController.deleteStore);
 
 router
   .route('/:storeId')

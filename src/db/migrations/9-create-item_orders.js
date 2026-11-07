@@ -12,6 +12,8 @@ export default {
           model: 'items',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       order_id: {
         type: Sequelize.INTEGER,
@@ -21,6 +23,8 @@ export default {
           model: 'orders',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
     });
   },

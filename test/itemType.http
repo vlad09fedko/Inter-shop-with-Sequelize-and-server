@@ -1,6 +1,6 @@
 @baseUrl=http://127.0.0.1:5000/api/itemTypes
 
-GET {{baseUrl}}
+GET {{baseUrl}}?offset=25
 ###
 GET {{baseUrl}}/1
 ###

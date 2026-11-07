@@ -3,7 +3,12 @@ const { Model, Sequelize } = _sequelize;
 
 export default class ItemCategory extends Model {
   static associate(models) {
-    ItemCategory.hasMany(models.Item, { as: 'items', foreignKey: 'categ_id' });
+    ItemCategory.hasMany(models.Item, {
+      as: 'items',
+      foreignKey: 'categ_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   }
 
   static init(sequelize, DataTypes) {

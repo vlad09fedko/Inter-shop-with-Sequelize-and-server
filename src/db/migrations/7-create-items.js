@@ -17,6 +17,8 @@ export default {
           model: 'item_categories',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       type_id: {
         type: Sequelize.INTEGER,
@@ -25,6 +27,8 @@ export default {
           model: 'item_types',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       brand_id: {
         type: Sequelize.INTEGER,
@@ -33,6 +37,8 @@ export default {
           model: 'brands',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       model_id: {
         type: Sequelize.INTEGER,
@@ -41,6 +47,8 @@ export default {
           model: 'item_models',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       price: {
         type: Sequelize.FLOAT,
@@ -53,6 +61,8 @@ export default {
           model: 'stores',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       amount: {
         type: Sequelize.INTEGER,

@@ -56,7 +56,7 @@ class ItemModelController {
         where: { id: req.params.itemModelId },
       });
       if (deletedItemModelsCount) {
-        return res.json(Number(req.params.itemModelId));
+        return res.json(deletedItemModelsCount);
       } else {
         throw createError(404, 'Item model not found!');
       }

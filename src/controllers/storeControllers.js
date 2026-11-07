@@ -1,15 +1,32 @@
 import createError from 'http-errors';
 
 import db from '../db/models/index.js';
+import { Op } from 'sequelize';
 
 class StoreController {
   async getAllStores(req, res, next) {
     try {
+      const { store, offset } = req.query;
+
+      const storesTitles = store
+        ? Array.isArray(store)
+          ? store
+          : [store]
+        : null;
+
       const stores = await db.Store.findAll({
         raw: true,
         limit: 10,
-        offset: req.query.offset || 0,
+        offset: offset || 0,
+        ...(storesTitles && {
+          where: {
+            title: {
+              [Op.in]: storesTitles,
+            },
+          },
+        }),
       });
+
       if (!stores.length) throw createError(404, 'Stores not found!');
       return res.json(stores);
     } catch (error) {
@@ -50,11 +67,29 @@ class StoreController {
 
   async deleteStore(req, res, next) {
     try {
-      const deletedStoresCount = await db.Store.destroy({
-        where: { id: req.params.storeId },
-      });
+      const store = req?.query?.store || undefined;
+      const storeId = req?.params?.storeId || undefined;
+
+      const storesTitles = store
+        ? Array.isArray(store)
+          ? store
+          : [store]
+        : null;
+
+      let deletedStoresCount = 0;
+      if (storeId) {
+        deletedStoresCount += await db.Store.destroy({
+          where: { id: storeId },
+        });
+      }
+      if (storesTitles) {
+        deletedStoresCount += await db.Store.destroy({
+          where: { title: { [Op.in]: storesTitles } },
+        });
+      }
+
       if (deletedStoresCount) {
-        return res.json(Number(req.params.storeId));
+        return res.json(deletedStoresCount);
       } else {
         throw createError(404, 'Store not found!');
       }

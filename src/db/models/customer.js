@@ -3,7 +3,12 @@ const { Model, Sequelize } = _sequelize;
 
 export default class Customer extends Model {
   static associate(models) {
-    Customer.hasMany(models.Order, { as: 'orders', foreignKey: 'customer_id' });
+    Customer.hasMany(models.Order, {
+      as: 'orders',
+      foreignKey: 'customer_id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   }
 
   static init(sequelize, DataTypes) {

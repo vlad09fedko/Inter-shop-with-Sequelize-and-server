@@ -54,7 +54,7 @@ class OrderController {
         where: { id: req.params.orderId },
       });
       if (deletedOrdersCount) {
-        return res.json(Number(req.params.orderId));
+        return res.json(deletedOrdersCount);
       } else {
         throw createError(404, 'Order not found!');
       }

@@ -72,7 +72,7 @@ class CustomerController {
       });
 
       if (deletedCustomersCount) {
-        return res.json(Number(req.params.customerId));
+        return res.json(deletedCustomersCount);
       } else {
         throw createError(404, 'Customer not found!');
       }

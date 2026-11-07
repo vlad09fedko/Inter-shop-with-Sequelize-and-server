@@ -13,8 +13,7 @@ export default {
       title: {
         type: Sequelize.STRING(100),
         allowNull: false,
-                  unique: true
-
+        unique: true,
       },
       brand_id: {
         type: Sequelize.INTEGER,
@@ -23,6 +22,8 @@ export default {
           model: 'brands',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       description: {
         type: Sequelize.TEXT,
