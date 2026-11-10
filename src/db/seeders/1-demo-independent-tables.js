@@ -1,7 +1,7 @@
 'use strict';
 
 import { faker } from '@faker-js/faker';
-import { genSaltSync, hashSync } from 'bcryptjs';
+import { genSaltSync, hashSync } from 'bcrypt';
 
 import { testStoresTitles } from '../../constants/index.js';
 

@@ -1,5 +1,5 @@
 import createError from 'http-errors';
-import { genSaltSync, hashSync, compareSync } from 'bcryptjs';
+import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 
 import db from '../db/models/index.js';
 import { Sequelize } from 'sequelize';
