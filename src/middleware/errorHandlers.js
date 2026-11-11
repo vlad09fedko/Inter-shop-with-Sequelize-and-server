@@ -17,6 +17,7 @@ export const sequelizeErrorHandler = (error, req, res, next) => {
       .status(200)
       .send({ errors: [{ title: 'Sequelize Error', details: error.errors }] });
   }
+  next(error)
 };
 
 export const errorHandler = (error, req, res, next) => {
