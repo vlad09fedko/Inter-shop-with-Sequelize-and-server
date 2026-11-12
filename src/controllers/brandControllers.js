@@ -69,9 +69,8 @@ class BrandController {
       if (deletedBrandsCount) {
         await t.commit();
         return res.json(deletedBrandsCount);
-      } else {
-        throw createError(404, 'Brand not found!');
       }
+      throw createError(404, 'Brand not found!');
     } catch (error) {
       await t.rollback();
       next(error);

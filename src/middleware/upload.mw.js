@@ -14,7 +14,7 @@ const storageBrandLogo = multer.diskStorage({
 });
 
 const filterBrandLogo = (req, file, cb) => {
-  return file.mimetype.test(/^image\/(png|jpg|jpeg)/)
+  return /^image\/(png|jpg|jpeg)/.test(file.mimetype)
     ? cb(null, true)
     : cb(null, false);
 };
