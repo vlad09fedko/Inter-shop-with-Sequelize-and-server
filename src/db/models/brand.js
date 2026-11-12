@@ -29,6 +29,10 @@ export default class Brand extends Model {
           type: DataTypes.TEXT,
           allowNull: true,
         },
+        logo: {
+          type: DataTypes.TEXT,
+          allowNull: true,
+        }
       },
       {
         sequelize,

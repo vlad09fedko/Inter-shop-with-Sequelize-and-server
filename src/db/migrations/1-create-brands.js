@@ -19,6 +19,10 @@ export default {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+      logo: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

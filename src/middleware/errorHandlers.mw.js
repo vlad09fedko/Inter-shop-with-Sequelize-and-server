@@ -12,7 +12,7 @@ export const validationErrorHandler = (error, req, res, next) => {
 };
 
 export const sequelizeErrorHandler = (error, req, res, next) => {
-  if (err instanceof db.Sequelize.BaseError) {
+  if (error instanceof db.Sequelize.BaseError) {
     return res
       .status(200)
       .send({ errors: [{ title: 'Sequelize Error', details: error.errors }] });

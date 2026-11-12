@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { storeController } from '../controllers/index.js';
-import { validateStore } from '../middleware/validate.mw.js';
+import { validateStore } from '../middleware/index.js';
 
 const router = new Router();
 

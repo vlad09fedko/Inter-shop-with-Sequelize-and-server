@@ -3,7 +3,7 @@ import http from 'http';
 import app from './src/app.js';
 import db from './src/db/models/index.js';
 
-const PORT = process.env.SERVER_PORT || 5001;
+const PORT = process.env.SERVER_PORT || 5000;
 const server = http.createServer(app);
 
 async function checkDbConnection() {

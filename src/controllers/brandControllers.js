@@ -63,6 +63,30 @@ class BrandController {
       next(error);
     }
   }
+
+  async updateLogo(req, res, next) {
+    try {
+      const {
+        params: { brandId },
+        file: { filename },
+      } = req;
+      const [count, [updatedBrands]] = await db.Brand.update(
+        { logo: filename },
+        {
+          raw: true,
+          where: { id: brandId },
+          fields: ['logo'],
+          returning: ['id', 'title'],
+        },
+      );
+      if(count){
+        return res.json(updatedBrands)
+      }
+      next(createError(404, 'Brand not found'))
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const brandController = new BrandController();
