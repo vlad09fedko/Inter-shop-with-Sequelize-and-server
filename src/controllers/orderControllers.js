@@ -28,37 +28,50 @@ class OrderController {
   }
 
   async createOrder(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
-      const createdOrder = await db.Order.create(req.body, { raw: true });
+      const createdOrder = await db.Order.create(req.body, {
+        raw: true,
+        transaction: t,
+      });
+      await t.commit();
       return res.json(createdOrder);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateOrder(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const updatedOrder = await db.Order.update(req.body, {
         where: { id: req.params.orderId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedOrder[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async deleteOrder(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const deletedOrdersCount = await db.Order.destroy({
         where: { id: req.params.orderId },
+        transaction: t,
       });
       if (deletedOrdersCount) {
+        await t.commit();
         return res.json(deletedOrdersCount);
-      } else {
-        throw createError(404, 'Order not found!');
       }
+      throw createError(404, 'Order not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }

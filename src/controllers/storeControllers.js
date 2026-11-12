@@ -45,27 +45,38 @@ class StoreController {
   }
 
   async createStore(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
-      const createdStore = await db.Store.create(req.body, { raw: true });
+      const createdStore = await db.Store.create(req.body, {
+        raw: true,
+        transaction: t,
+      });
+      await t.commit();
       return res.json(createdStore);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateStore(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const updatedStore = await db.Store.update(req.body, {
         where: { id: req.params.storeId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedStore[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async deleteStore(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const store = req?.query?.store || undefined;
       const storeId = req?.params?.storeId || undefined;
@@ -80,20 +91,23 @@ class StoreController {
       if (storeId) {
         deletedStoresCount += await db.Store.destroy({
           where: { id: storeId },
+          transaction: t,
         });
       }
       if (storesTitles) {
         deletedStoresCount += await db.Store.destroy({
           where: { title: { [Op.in]: storesTitles } },
+          transaction: t,
         });
       }
 
       if (deletedStoresCount) {
+        await t.commit();
         return res.json(deletedStoresCount);
-      } else {
-        throw createError(404, 'Store not found!');
       }
+      throw createError(404, 'Store not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }

@@ -31,39 +31,50 @@ class ItemCategoryController {
   }
 
   async createItemCategory(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const createdItemCategory = await db.ItemCategory.create(req.body, {
         raw: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(createdItemCategory);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateItemCategory(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const updatedItemCategory = await db.ItemCategory.update(req.body, {
         where: { id: req.params.itemCategoryId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedItemCategory[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async deleteItemCategory(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const deletedItemCategoriesCount = await db.ItemCategory.destroy({
         where: { id: req.params.itemCategoryId },
+        transaction: t,
       });
       if (deletedItemCategoriesCount) {
+        await t.commit();
         return res.json(deletedItemCategoriesCount);
-      } else {
-        throw createError(404, 'Item category not found!');
       }
+      throw createError(404, 'Item category not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }

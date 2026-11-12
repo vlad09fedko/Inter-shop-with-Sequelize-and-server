@@ -32,19 +32,26 @@ class CustomerController {
   }
 
   createCustomer = async (req, res, next) => {
+    const t = await db.sequelize.transaction();
     try {
       const salt = genSaltSync(this.saltRounds);
       const password_hash = hashSync(req.body.password_hash, salt);
       const values = { ...req.body, password_hash };
 
-      const createdCustomer = await db.Customer.create(values, { raw: true });
+      const createdCustomer = await db.Customer.create(values, {
+        raw: true,
+        transaction: t,
+      });
+      await t.commit();
       return res.json(createdCustomer);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   };
 
   updateCustomer = async (req, res, next) => {
+    const t = await db.sequelize.transaction();
     try {
       const salt = genSaltSync(this.saltRounds);
       const password_hash = hashSync(req.body.password_hash, salt);
@@ -53,14 +60,18 @@ class CustomerController {
       const updatedCustomer = await db.Customer.update(values, {
         where: { id: req.params.customerId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedCustomer[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   };
 
   async deleteCustomer(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const { password_hash } = await db.Customer.findByPk(
         req.params.customerId,
@@ -70,22 +81,26 @@ class CustomerController {
 
       const deletedCustomersCount = await db.Customer.destroy({
         where: { id: req.params.customerId },
+        transaction: t,
       });
 
       if (deletedCustomersCount) {
+        await t.commit();
         return res.json(deletedCustomersCount);
-      } else {
-        throw createError(404, 'Customer not found!');
       }
+      throw createError(404, 'Customer not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async getCustomerWithMostOrders(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const customers = await db.Customer.findAll({
         raw: true,
+        transaction: t,
         order: [
           ['count_of_orders', 'DESC'],
           ['id', 'ASC'],
@@ -114,17 +129,23 @@ class CustomerController {
       const resCustomers = customers.filter(
         customer => customer.count_of_orders === maxOfOrders,
       );
-      if (!resCustomers.length) throw createError(404, 'Customers not found!');
-      return res.json(resCustomers);
+      if (resCustomers.length) {
+        await t.commit();
+        return res.json(resCustomers);
+      }
+      throw createError(404, 'Customers not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async getCustomerWithMostExpensiveItem(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const customers = await db.Customer.findAll({
         raw: true,
+        transaction: t,
         order: [
           ['max_price', 'DESC'],
           ['id', 'ASC'],
@@ -163,9 +184,13 @@ class CustomerController {
       const resCustomers = customers.filter(
         customer => customer.max_price === maxPrice,
       );
-      if (!resCustomers.length) throw createError(404, 'Customers not found!');
-      return res.json(resCustomers);
+      if (resCustomers.length) {
+        await t.commit();
+        return res.json(resCustomers);
+      }
+      throw createError(404, 'Customers not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }

@@ -28,39 +28,50 @@ class ItemModelController {
   }
 
   async createItemModel(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const createdItemModel = await db.ItemModel.create(req.body, {
         raw: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(createdItemModel);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateItemModel(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const updatedItemModel = await db.ItemModel.update(req.body, {
         where: { id: req.params.itemModelId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedItemModel[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async deleteItemModel(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const deletedItemModelsCount = await db.ItemModel.destroy({
         where: { id: req.params.itemModelId },
+        transaction: t,
       });
       if (deletedItemModelsCount) {
         return res.json(deletedItemModelsCount);
-      } else {
-        throw createError(404, 'Item model not found!');
+        await t.commit();
       }
+      throw createError(404, 'Item model not found!');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }

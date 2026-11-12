@@ -29,42 +29,57 @@ class BrandController {
   }
 
   async createBrand(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
-      const createdBrand = await db.Brand.create(req.body, { raw: true });
+      const createdBrand = await db.Brand.create(req.body, {
+        raw: true,
+        transaction: t,
+      });
+      await t.commit();
       return res.json(createdBrand);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateBrand(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const updatedBrand = await db.Brand.update(req.body, {
         where: { id: req.params.brandId },
         returning: true,
+        transaction: t,
       });
+      await t.commit();
       return res.json(...updatedBrand[1]);
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async deleteBrand(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const deletedBrandsCount = await db.Brand.destroy({
         where: { id: req.params.brandId },
+        transaction: t,
       });
       if (deletedBrandsCount) {
+        await t.commit();
         return res.json(deletedBrandsCount);
       } else {
         throw createError(404, 'Brand not found!');
       }
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
 
   async updateLogo(req, res, next) {
+    const t = await db.sequelize.transaction();
     try {
       const {
         params: { brandId },
@@ -77,13 +92,16 @@ class BrandController {
           where: { id: brandId },
           fields: ['logo'],
           returning: ['id', 'title'],
+          transaction: t,
         },
       );
-      if(count){
-        return res.json(updatedBrands)
+      if (count) {
+        await t.commit();
+        return res.json(updatedBrands);
       }
-      next(createError(404, 'Brand not found'))
+      throw createError(404, 'Brand not found');
     } catch (error) {
+      await t.rollback();
       next(error);
     }
   }
