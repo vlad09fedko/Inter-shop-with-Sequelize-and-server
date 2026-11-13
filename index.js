@@ -9,6 +9,7 @@ const server = http.createServer(app);
 async function checkDbConnection() {
   try {
     await db.sequelize.authenticate();
+    console.log('Connect to db succesfully!');
     return true;
   } catch (error) {
     console.error('Cannot connect to db:', error.message);
@@ -26,6 +27,6 @@ async function startServer() {
   }
 }
 
-if (checkDbConnection()) {
+if (await checkDbConnection()) {
   startServer();
 }

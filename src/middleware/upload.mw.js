@@ -9,12 +9,12 @@ const storageBrandLogo = multer.diskStorage({
     cb(null, path.resolve(staticPath, 'images', 'brands'));
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()} - ${file.originalname}`);
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
 const filterBrandLogo = (req, file, cb) => {
-  return /^image\/(png|jpg|jpeg)/.test(file.mimetype)
+  return /^image\/(png|jpg|jpeg)$/.test(file.mimetype)
     ? cb(null, true)
     : cb(null, false);
 };
